@@ -35,7 +35,7 @@ services:
 
   kafka:
     hostname: kafka
-    image: kafka
+    image: dannylenik/kafka
     ports:
     - 9092
     deploy:
