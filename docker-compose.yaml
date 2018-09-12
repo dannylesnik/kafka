@@ -35,11 +35,11 @@ services:
 
   kafka:
     hostname: kafka
-    image: dannylenik/kafka
+    image: kafka
     ports:
     - 9092
     deploy:
-      replicas: 1
+      replicas: 2
     environment:
       ZK_HOSTS: "zoo1:2181,zoo2:2181,zoo3:2181"
       TOPIC_LIST: "topic1:1:2,topic2:1:3"

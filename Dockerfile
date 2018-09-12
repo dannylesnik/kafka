@@ -13,7 +13,7 @@ RUN wget -q http://apache.mirrors.spacedump.net/kafka/"$KAFKA_VERSION"/kafka_"$S
 
 # Install Kafka, Zookeeper and other needed things
 RUN apt-get update && \
-    apt-get install -y telnet nano wget supervisor dnsutils && \
+    apt-get install -y zookeeper telnet nano wget supervisor dnsutils && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get clean && \
     wget -q http://apache.mirrors.spacedump.net/kafka/"$KAFKA_VERSION"/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz -O /tmp/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz && \
@@ -26,8 +26,10 @@ ADD scripts/create-topics.sh /usr/bin/create-topics.sh
 
 # Supervisor config
 ADD supervisor/kafka.conf /etc/supervisor/conf.d/
+ADD supervisor/zookeeper.conf /etc/supervisor/conf.d/
+
 
 # 9092 is kafka
-EXPOSE  9092
+EXPOSE  9092 2181
 
 CMD ["supervisord", "-n"]
